@@ -4266,23 +4266,10 @@ local Library = (function(UIFactory, GUIFX)
         return nil
     end
 
-    local function resolveUIParent(screen)
-        if type(gethui) == "function" then
-            local ok, result = pcall(gethui)
-            if ok and typeof(result) == "Instance" then
-                return result
-            end
-        end
-
-        if type(syn) == "table" and type(syn.protect_gui) == "function" then
-            pcall(syn.protect_gui, screen)
-            return CoreGui
-        end
-
-        local player = Players.LocalPlayer or Players.PlayerAdded:Wait()
-        return player:WaitForChild("PlayerGui")
-    end
-
+  local function resolveUIParent()
+	local player = Players.LocalPlayer or Players.PlayerAdded:Wait()
+	return player:WaitForChild("PlayerGui")
+end
     function Library:CreateWindow(settings)
         settings = settings or {}
         local screen
