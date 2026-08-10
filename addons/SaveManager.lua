@@ -594,6 +594,63 @@ function SaveManager:BuildConfigSection(Tab)
 		end,
 	})
 
+	local ShareSection = Tab:AddSection({
+		Name = "Share Config",
+		Color = "Blue",
+		Collapsible = true,
+		DefaultCollapsed = false,
+	})
+
+	if type(ShareSection.AddInput) ~= "function" then
+		function ShareSection:AddInput(...)
+			return self:_add("AddInput", ...)
+		end
+	end
+
+	ShareSection:AddButton({
+		Name = "Copy Config",
+		ButtonText = "Copy",
+
+		Callback = function()
+			local Clipboard = setclipboard or toclipboard
+
+			if Clipboard then
+				Clipboard(
+					HttpService:JSONEncode(
+						self.Window:GetConfigData()
+					)
+				)
+			end
+		end,
+	})
+
+	local InsertConfig
+
+	InsertConfig = ShareSection:AddInput({
+		Name = "Insert Config",
+		Placeholder = "Paste config...",
+		Default = "",
+
+		Callback = function(Value)
+			if Value == "" then
+				return
+			end
+
+			local Success, Data = pcall(
+				HttpService.JSONDecode,
+				HttpService,
+				Value
+			)
+
+			if Success and type(Data) == "table" then
+				self.Window:_applyConfigData(Data, false)
+				InsertConfig:Set("", true)
+			else
+				ConfigWarn("insert", "Invalid config")
+			end
+		end,
+	})
+
 	return Section
 end
 
