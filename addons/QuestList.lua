@@ -28,5 +28,7 @@ return {
 	{"ADVANCED_FISHING", HandleAdvancedFishingQuest},
 	{"COIN_JAR", HandleCoinJarQuest},
 	{"COMET", HandleCometQuest},
+	{"PINATA", HandlePinataQuest},
+	{"LUCKYBLOCK", HandleLuckyBlockQuest},
 	{"BEST_SUPERIOR_MINI_CHEST", HandleBestSuperiorMiniChestQuest},
 }
