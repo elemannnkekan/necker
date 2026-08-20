@@ -4476,6 +4476,11 @@ end
             return false
         end
         local activeSubTab = self.ActiveSubTabByTab and self.ActiveSubTabByTab[tabName]
+        local subTabs = self.SubTabsByTab and self.SubTabsByTab[tabName]
+        if not activeSubTab and subTabs and subTabs.Order[1] then
+            activeSubTab = subTabs.Order[1]
+            self.ActiveSubTabByTab[tabName] = activeSubTab
+        end
         if entry.SubTab and activeSubTab and entry.SubTab ~= activeSubTab then
             return false
         end
@@ -12910,7 +12915,8 @@ end
             return
         end
         bar.Visible = true
-        local activeName = self.ActiveSubTabByTab[self.ActiveTab]
+        local activeName = self.ActiveSubTabByTab[self.ActiveTab] or subTabs.Order[1]
+        self.ActiveSubTabByTab[self.ActiveTab] = activeName
         for index, name in ipairs(subTabs.Order) do
             local data = subTabs.Map[name]
             local isActive = name == activeName
