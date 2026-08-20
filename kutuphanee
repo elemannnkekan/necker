@@ -4462,6 +4462,7 @@ end
                 table.insert(section.Entries, entry)
             end
         end
+        self:_refreshPagination()
         return mounted
     end
 
