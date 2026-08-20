@@ -1,5 +1,4 @@
 local UIFactory = (function()
-local UIFactory = (function()
 
     local UIFactory = {}
 
