@@ -19033,4 +19033,72 @@ end
 
 ]================================================])()(Library)
 
+
+function Library:AddDiv()
+    local row = Instance.new("Frame")
+    row.Name = "Div"
+    row.BackgroundColor3 = Color3.new(1, 1, 1)
+    row.BackgroundTransparency = 1
+    row.BorderColor3 = Color3.new(0.105882362, 0.164705887, 0.207843155)
+    row.BorderSizePixel = 1
+    row.Size = UDim2.new(1, 0, 0, 35)
+    row.ZIndex = 1
+
+    local line = Instance.new("Frame")
+    line.Name = "Frame"
+    line.AnchorPoint = Vector2.new(0, 0.5)
+    line.BackgroundColor3 = Color3.new(0, 0, 0)
+    line.BackgroundTransparency = 0.875
+    line.BorderColor3 = Color3.new(0.105882362, 0.164705887, 0.207843155)
+    line.BorderSizePixel = 1
+    line.Position = UDim2.new(0, 0, 0.5, 0)
+    line.Size = UDim2.new(1, 0, 0, 1)
+    line.ZIndex = 2
+    line.Parent = row
+
+    local gradient = Instance.new("UIGradient")
+    gradient.Color = ColorSequence.new(Color3.new(1, 1, 1))
+    gradient.Offset = Vector2.new(0, 0)
+    gradient.Rotation = 0
+    gradient.Transparency = NumberSequence.new({
+        NumberSequenceKeypoint.new(0, 1),
+        NumberSequenceKeypoint.new(0.1905, 0.3875),
+        NumberSequenceKeypoint.new(0.5019, 0),
+        NumberSequenceKeypoint.new(0.7895, 0.36875),
+        NumberSequenceKeypoint.new(1, 1),
+    })
+    gradient.Parent = line
+
+    return self:_mount(row, "Div", "")
+end
+
+local BaseAddSectionDiv = Library.AddSection
+function Library:AddSection(...)
+    local section = BaseAddSectionDiv(self, ...)
+    function section:AddDiv()
+        return self:_add("AddDiv")
+    end
+    return section
+end
+
+local BaseAddSubTabDiv = Library.AddSubTab
+if type(BaseAddSubTabDiv) == "function" then
+    function Library:AddSubTab(...)
+        local subTab = BaseAddSubTabDiv(self, ...)
+        function subTab:AddDiv()
+            return self:_add("AddDiv")
+        end
+        return subTab
+    end
+end
+
+local BaseCreateTabDiv = Library.CreateTab
+function Library:CreateTab(...)
+    local tab = BaseCreateTabDiv(self, ...)
+    function tab:AddDiv()
+        return self.Window:_withTab(self.Name, "AddDiv")
+    end
+    return tab
+end
+
 return Library
