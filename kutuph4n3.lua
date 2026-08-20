@@ -12910,8 +12910,7 @@ end
             return
         end
         bar.Visible = true
-        local activeName = self.ActiveSubTabByTab[self.ActiveTab] or subTabs.Order[1]
-        self.ActiveSubTabByTab[self.ActiveTab] = activeName
+        local activeName = self.ActiveSubTabByTab[self.ActiveTab]
         for index, name in ipairs(subTabs.Order) do
             local data = subTabs.Map[name]
             local isActive = name == activeName
@@ -13015,9 +13014,6 @@ end
         }
         collection.Map[settings.Name] = data
         table.insert(collection.Order, settings.Name)
-        if not self.ActiveSubTabByTab[tabName] then
-            self.ActiveSubTabByTab[tabName] = settings.Name
-        end
         local subTab = {
             Name = settings.Name,
             Tab = tabName,
