@@ -1,3 +1,4 @@
+local UIFactory = loadstring([================================================[
 local UIFactory = (function()
 
     local UIFactory = {}
@@ -2239,9 +2240,8 @@ end)()
 
 return UIFactory
 
-end)()
-
-local GUIFX = (function()
+]================================================])()
+local GUIFX = loadstring([================================================[
 local GUIFX = (function()
     local TweenService = game:GetService("TweenService")
 
@@ -2354,9 +2354,8 @@ end)()
 
 return GUIFX
 
-end)()
-
-local CreateLibrary = (function()
+]================================================])()
+local CreateLibrary = loadstring([================================================[
 return function(UIFactory, GUIFX)
 local Library = (function(UIFactory, GUIFX)
     local UserInputService = game:GetService("UserInputService")
@@ -14556,11 +14555,11 @@ return Library
 
 end
 
-end)()
+]================================================])()
 
 local Library = CreateLibrary(UIFactory, GUIFX)
 
-(function()
+loadstring([================================================[
 return function(Library)
     local UserInputService = game:GetService("UserInputService")
     local RunService = game:GetService("RunService")
@@ -15050,9 +15049,8 @@ return function(Library)
     end
 end
 
-end)()(Library)
-
-(function()
+]================================================])()(Library)
+loadstring([================================================[
 return function(Library)
     if type(Library) ~= "table" then
         error("features.lua expected the necker Library table", 2)
@@ -16991,9 +16989,8 @@ return function(Library)
     return Library
 end
 
-end)()(Library)
-
-(function()
+]================================================])()(Library)
+loadstring([================================================[
 return function(Library)
     if type(Library) ~= "table" then
         error("circularselection.lua expected the necker Library table", 2)
@@ -17703,9 +17700,8 @@ return function(Library)
     return Library
 end
 
-end)()(Library)
-
-(function()
+]================================================])()(Library)
+loadstring([================================================[
 return function(Library)
     if type(Library) ~= "table" then
         error("popup.lua expected the necker Library table", 2)
@@ -18425,9 +18421,8 @@ return function(Library)
     return Library
 end
 
-end)()(Library)
-
-(function()
+]================================================])()(Library)
+loadstring([================================================[
 return function(Library)
     if type(Library) ~= "table" then
         error("infooverlay.lua expected the necker Library table", 2)
@@ -19026,6 +19021,6 @@ return function(Library)
     return Library
 end
 
-end)()(Library)
+]================================================])()(Library)
 
 return Library
