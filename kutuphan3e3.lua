@@ -14802,6 +14802,7 @@ return function(Library)
         local row = self.Templates.Selector:Clone()
         row.SettingName.Text = settings.Name .. " ="
         row.SettingName.Size = UDim2.new(0.4, 0, 0.5, 0)
+        row.SettingName.Position = UDim2.new(0.0625, 0, 0.5, 0)
         local holder = row.Toggle
         local button = holder.Button
         local label = button.TextLabel
@@ -14830,7 +14831,7 @@ return function(Library)
         button.PressedImage = "rbxassetid://14423621349"
         button.ImageColor3 = Color3.new(1, 1, 1)
         button.ImageTransparency = 0
-        button.Position = UDim2.new(0.42760735, 0, 0.479999989, 0)
+        button.Position = UDim2.new(0.49010735, 0, 0.479999989, 0)
         button.Size = UDim2.new(0.449999988, 0, 1, 0)
         button.ScaleType = Enum.ScaleType.Slice
         button.SliceCenter = Rect.new(20, 20, 80, 80)
