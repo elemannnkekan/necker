@@ -5335,18 +5335,12 @@ end
         end
 
         self.TooltipPanel.Size = UDim2.fromOffset(width, contentHeight)
+        if self.TooltipScale then
+            self.TooltipScale.Scale = 1
+        end
         self.TooltipPanel.Visible = true
         self.TooltipTarget = target
         self.TooltipValue = value
-
-        if self.TooltipScale then
-            self.TooltipScale.Scale = 0.92
-            TweenService:Create(
-                self.TooltipScale,
-                TweenInfo.new(0.2, Enum.EasingStyle.Back, Enum.EasingDirection.Out),
-                {Scale = 1}
-            ):Play()
-        end
 
         if self.TooltipSoundEnabled ~= false then
             local sound = Instance.new("Sound")
@@ -12973,7 +12967,7 @@ end
             end)
             GUIFX.ButtonFX(button, 1.06)
             if data.Tooltip then
-                require(game.ReplicatedStorage.Library.Client.GUIFX.Tooltip)(button, tostring(data.Tooltip))
+                self:AttachTooltip(button, data.Tooltip)
             end
 
             data.Button = button
