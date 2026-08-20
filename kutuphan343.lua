@@ -12972,6 +12972,9 @@ end
                 safeCall(data.Callback, name)
             end)
             GUIFX.ButtonFX(button, 1.06)
+            if data.Tooltip then
+                self:AttachTooltip(button, data.Tooltip)
+            end
 
             data.Button = button
             data.Select = selectImage
@@ -13013,6 +13016,7 @@ end
         local data = {
             Name = settings.Name,
             Icon = settings.Icon,
+            Tooltip = settings.Tooltip,
             Callback = settings.Callback,
         }
         collection.Map[settings.Name] = data
