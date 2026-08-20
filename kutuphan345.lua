@@ -12973,7 +12973,7 @@ end
             end)
             GUIFX.ButtonFX(button, 1.06)
             if data.Tooltip then
-                self:AttachTooltip(button, data.Tooltip)
+                require(game.ReplicatedStorage.Library.Client.GUIFX.Tooltip)(button, tostring(data.Tooltip))
             end
 
             data.Button = button
