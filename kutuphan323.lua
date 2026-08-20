@@ -1,4 +1,3 @@
---eee
 local UIFactory = loadstring([================================================[
 local UIFactory = (function()
 
