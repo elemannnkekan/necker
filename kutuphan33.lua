@@ -14801,8 +14801,12 @@ return function(Library)
 
         local row = self.Templates.Selector:Clone()
         row.SettingName.Text = settings.Name
-        local button = row.Toggle.Button
+        row.SettingName.Size = UDim2.new(0.4, 0, 0.5, 0)
+        local holder = row.Toggle
+        local button = holder.Button
         local label = button.TextLabel
+        button.Parent = row
+        holder:Destroy()
         local currentKeys = normalizeKeys(settings.CurrentKey or settings.Default)
         local owner = {}
         local registeredSignature = ""
@@ -14816,13 +14820,18 @@ return function(Library)
         local skipActivated = false
         local connections = {}
 
+        button.Active = true
+        button.AnchorPoint = Vector2.new(0, 0.5)
         button.AutoButtonColor = true
+        button.BackgroundColor3 = Color3.new(1, 1, 1)
         button.BackgroundTransparency = 1
         button.BorderSizePixel = 0
         button.Image = "rbxassetid://14423621163"
         button.PressedImage = "rbxassetid://14423621349"
         button.ImageColor3 = Color3.new(1, 1, 1)
         button.ImageTransparency = 0
+        button.Position = UDim2.new(0.42760735, 0, 0.479999989, 0)
+        button.Size = UDim2.new(0.449999988, 0, 1, 0)
         button.ScaleType = Enum.ScaleType.Slice
         button.SliceCenter = Rect.new(20, 20, 80, 80)
         button.SliceScale = 1
@@ -14831,13 +14840,13 @@ return function(Library)
         label.Position = UDim2.fromScale(0.5, 0.5)
         label.BackgroundTransparency = 1
         label.FontFace = Font.new("rbxasset://fonts/families/FredokaOne.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
-        label.Size = UDim2.new(0.85, 0, 0.6, 0)
+        label.Size = UDim2.new(0.850000024, 0, 0.600000024, 0)
         label.TextColor3 = Color3.new(1, 1, 1)
         label.TextScaled = true
         label.TextSize = 18
         label.TextStrokeTransparency = 1
         label.TextWrapped = true
-        label.TextXAlignment = Enum.TextXAlignment.Right
+        label.TextXAlignment = Enum.TextXAlignment.Center
         label.TextYAlignment = Enum.TextYAlignment.Center
         label.ZIndex = 6
         local stroke = label:FindFirstChildOfClass("UIStroke") or Instance.new("UIStroke")
@@ -14845,6 +14854,26 @@ return function(Library)
         stroke.Thickness = 3
         stroke.Transparency = 0
         stroke.Parent = label
+        local equals = Instance.new("TextLabel")
+        equals.Name = "Equals"
+        equals.Active = false
+        equals.AnchorPoint = Vector2.new(0.5, 0.5)
+        equals.BackgroundColor3 = Color3.new(1, 1, 1)
+        equals.BackgroundTransparency = 1
+        equals.BorderSizePixel = 0
+        equals.FontFace = Font.new("rbxasset://fonts/families/FredokaOne.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+        equals.Position = UDim2.new(0.92760735, 0, 0.375, 0)
+        equals.Size = UDim2.new(0.1447853, 0, 0.800000072, 0)
+        equals.Text = "="
+        equals.TextColor3 = Color3.new(0.164705887, 0.168627456, 0.192156866)
+        equals.TextScaled = true
+        equals.TextSize = 14
+        equals.TextStrokeTransparency = 1
+        equals.TextWrapped = true
+        equals.TextXAlignment = Enum.TextXAlignment.Center
+        equals.TextYAlignment = Enum.TextYAlignment.Center
+        equals.ZIndex = 7
+        equals.Parent = row
         setGradient(button, false)
 
         self:_mount(row, settings.Name, settings.Name .. " keybind")
