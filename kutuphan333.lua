@@ -14800,7 +14800,7 @@ return function(Library)
         settings.IgnoreProcessed = settings.IgnoreProcessed == true
 
         local row = self.Templates.Selector:Clone()
-        row.SettingName.Text = settings.Name
+        row.SettingName.Text = settings.Name .. " ="
         row.SettingName.Size = UDim2.new(0.4, 0, 0.5, 0)
         local holder = row.Toggle
         local button = holder.Button
@@ -14854,26 +14854,6 @@ return function(Library)
         stroke.Thickness = 3
         stroke.Transparency = 0
         stroke.Parent = label
-        local equals = Instance.new("TextLabel")
-        equals.Name = "Equals"
-        equals.Active = false
-        equals.AnchorPoint = Vector2.new(0.5, 0.5)
-        equals.BackgroundColor3 = Color3.new(1, 1, 1)
-        equals.BackgroundTransparency = 1
-        equals.BorderSizePixel = 0
-        equals.FontFace = Font.new("rbxasset://fonts/families/FredokaOne.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
-        equals.Position = UDim2.new(0.92760735, 0, 0.375, 0)
-        equals.Size = UDim2.new(0.1447853, 0, 0.800000072, 0)
-        equals.Text = "="
-        equals.TextColor3 = Color3.new(0.164705887, 0.168627456, 0.192156866)
-        equals.TextScaled = true
-        equals.TextSize = 14
-        equals.TextStrokeTransparency = 1
-        equals.TextWrapped = true
-        equals.TextXAlignment = Enum.TextXAlignment.Center
-        equals.TextYAlignment = Enum.TextYAlignment.Center
-        equals.ZIndex = 7
-        equals.Parent = row
         setGradient(button, false)
 
         self:_mount(row, settings.Name, settings.Name .. " keybind")
