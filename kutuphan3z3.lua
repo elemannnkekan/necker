@@ -12881,7 +12881,7 @@ end
         bar.AnchorPoint = Vector2.new(0.5, 0)
         bar.BackgroundTransparency = 1
         bar.Position = UDim2.new(0.5, 0, 0, 0)
-        bar.Size = UDim2.new(1, -14, 0, 42)
+        bar.Size = UDim2.new(1, -14, 0, 54)
         bar.Visible = false
         bar.ZIndex = 70
         bar.Parent = self.ItemsFrame.Parent
@@ -12894,7 +12894,6 @@ end
         local layout = Instance.new("UIListLayout")
         layout.FillDirection = Enum.FillDirection.Horizontal
         layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-        layout.Padding = UDim.new(0, 8)
         layout.SortOrder = Enum.SortOrder.LayoutOrder
         layout.VerticalAlignment = Enum.VerticalAlignment.Center
         layout.Parent = bar
@@ -12922,88 +12921,62 @@ end
         for index, name in ipairs(subTabs.Order) do
             local data = subTabs.Map[name]
             local isActive = name == activeName
-            local iconOffset = data.Icon and 22 or 0
-            local width = math.max(96, #name * 11 + 40 + iconOffset)
+            local iconImage = data.Icon or INVENTORY_TAB_ICONS[((index - 1) % #INVENTORY_TAB_ICONS) + 1]
 
-            local button = Instance.new("ImageButton")
+            local button = Instance.new("TextButton")
             button.Name = name
             button.Active = true
             button.AutoButtonColor = false
             button.BackgroundTransparency = 1
-            button.Image = "rbxassetid://14423621163"
-            button.PressedImage = "rbxassetid://14423621349"
-            button.ScaleType = Enum.ScaleType.Slice
-            button.SliceCenter = Rect.new(20, 20, 80, 80)
-            button.SliceScale = 0.967129648
+            button.BorderSizePixel = 0
             button.LayoutOrder = index
-            button.Size = UDim2.fromOffset(width, isActive and 40 or 36)
+            button.Size = UDim2.fromOffset(48, 48)
+            button.Text = ""
             button.ZIndex = 71
             button.Parent = bar
 
-            local inner = Instance.new("Frame")
-            inner.Name = "Fill"
-            inner.AnchorPoint = Vector2.new(0.5, 0.5)
-            inner.BackgroundColor3 = Color3.new(1, 1, 1)
-            inner.BorderSizePixel = 0
-            inner.Position = UDim2.fromScale(0.5, 0.5)
-            inner.Size = UDim2.new(1, -12, 1, -10)
-            inner.ZIndex = 72
-            inner.Parent = button
+            local scale = Instance.new("UIScale")
+            scale.Name = "ButtonUIScale"
+            scale.Parent = button
 
-            local innerCorner = Instance.new("UICorner")
-            innerCorner.CornerRadius = UDim.new(0.45, 0)
-            innerCorner.Parent = inner
+            local selectImage = Instance.new("ImageLabel")
+            selectImage.Name = "Select"
+            selectImage.BackgroundTransparency = 1
+            selectImage.Image = INVENTORY_SELECT_IMAGE
+            selectImage.ImageColor3 = Color3.fromRGB(0, 0, 0)
+            selectImage.Size = UDim2.fromScale(1, 1)
+            selectImage.Visible = isActive
+            selectImage.ZIndex = 71
+            selectImage.Parent = button
 
-            local innerStroke = Instance.new("UIStroke")
-            innerStroke.Color = Color3.fromRGB(42, 43, 49)
-            innerStroke.Thickness = isActive and 3.2 or 2.6
-            innerStroke.Parent = inner
+            local icon = Instance.new("ImageLabel")
+            icon.Name = "Icon"
+            icon.AnchorPoint = Vector2.new(0.5, 0.5)
+            icon.BackgroundTransparency = 1
+            icon.Image = iconImage
+            icon.ImageTransparency = isActive and 0 or 0.08
+            icon.Position = UDim2.fromScale(0.5, 0.5)
+            icon.ScaleType = Enum.ScaleType.Fit
+            icon.Size = UDim2.fromScale(1, 1)
+            icon.ZIndex = 72
+            icon.Parent = button
 
-            local gradient = Gradients:FindFirstChild(isActive and "GreenGradient" or "LightGreyGradient") or Gradients:FindFirstChild(isActive and "GreenGradient" or "GreyGradient")
-            if gradient then
-                gradient:Clone().Parent = inner
-            end
+            local aspect = Instance.new("UIAspectRatioConstraint")
+            aspect.AspectRatio = 1
+            aspect.Parent = icon
 
-            local label = Instance.new("TextLabel")
-            label.Name = "Label"
-            label.BackgroundTransparency = 1
-            label.AnchorPoint = Vector2.new(0.5, 0.5)
-            label.Position = UDim2.fromScale(0.5, 0.5)
-            label.Size = UDim2.new(1, data.Icon and -16 or -12, 1, 0)
-            label.ZIndex = 73
-            label.FontFace = Font.new("rbxasset://fonts/families/FredokaOne.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
-            label.Text = name
-            label.TextScaled = true
-            label.TextWrapped = true
-            label.TextColor3 = isActive and Color3.new(1, 1, 1) or Color3.fromRGB(76, 76, 84)
-            label.TextStrokeColor3 = Color3.new(0, 0, 0)
-            label.TextStrokeTransparency = isActive and 0 or 0.35
-            label.Parent = inner
+            scale.Scale = isActive and 1.08 or 1
 
-            local textConstraint = Instance.new("UITextSizeConstraint")
-            textConstraint.MinTextSize = 12
-            textConstraint.MaxTextSize = 20
-            textConstraint.Parent = label
-
-            if data.Icon then
-                local icon = Instance.new("ImageLabel")
-                icon.BackgroundTransparency = 1
-                icon.AnchorPoint = Vector2.new(0, 0.5)
-                icon.Image = data.Icon
-                icon.Position = UDim2.new(0, 10, 0.5, 0)
-                icon.Size = UDim2.fromOffset(20, 20)
-                icon.ZIndex = 74
-                icon.Parent = inner
-                label.Position = UDim2.new(0.5, 10, 0.5, 0)
-                label.Size = UDim2.new(1, -32, 1, 0)
-            end
-
-            GUIFX.ButtonFX(button, isActive and 1.045 or 1.03)
             button.Activated:Connect(function()
                 self:SelectSubTab(self.ActiveTab, name)
                 safeCall(data.Callback, name)
             end)
+            GUIFX.ButtonFX(button, 1.06)
+
             data.Button = button
+            data.Select = selectImage
+            data.IconObject = icon
+            data.Scale = scale
         end
         self:_applyContentInsets()
     end
